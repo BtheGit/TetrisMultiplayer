@@ -5,7 +5,7 @@ const io = require('socket.io')(server);
 const path = require('path');
 const Session = require('./components/Session');
 const Client = require('./components/Client');
-const port = 9000;
+const port = process.env.PORT || 9000;
 
 //Used to store all currently running players sessions/connections
 const sessionsMap = new Map;

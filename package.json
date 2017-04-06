@@ -1,8 +1,11 @@
 {
-  "name": "Brendan's Tetris Clone",
+  "name": "Brendan's_Tetris_Clone",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
+  "engines": {
+    "node": "6.10.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node main.js"    
@@ -14,7 +17,8 @@
     "express": "^4.15.2",
     "socket.io": "^1.7.3"
   },
-  "engines": {
-    "node": "6.10.1"
-  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.heroku.com/tetrisclone.git"
+  }
 }
