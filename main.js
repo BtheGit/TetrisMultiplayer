@@ -7,6 +7,8 @@ const Session = require('./components/Session');
 const Client = require('./components/Client');
 const port = process.env.PORT || 9000;
 
+io.set('transports',['xhr-polling']);
+
 //Used to store all currently running players sessions/connections
 const sessionsMap = new Map;
 
