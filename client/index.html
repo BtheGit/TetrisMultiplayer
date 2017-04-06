@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TetrisClone by Brendan</title>
+	<link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+	<div id="canvasContainer"></div>
+	
+	<template id="player-template">
+		<div class="player">
+			<canvas class="gameCanvas"></canvas>
+		</div>
+	</template>
+	<div class="flex-container">
+		<div class="controls">
+			<h3>Controls</h3>
+			<h4>Left: </h4><span>'a'</span>
+			<h4>Right: </h4><span>'d'</span>
+			<h4>Down: </h4><span>'s'</span>
+			<h4>Drop: </h4><span>'Space bar'</span>
+			<h4>Rotate Clockwise: </h4><span>'e'</span>
+			<h4>Rotate Counter-Clockwise: </h4><span>'q'</span>
+		</div>
+	</div>
+	<script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="utilities/utilities.js"></script>
+	<script type="text/javascript" src="components/ConnectionManager.js"></script>
+	<script type="text/javascript" src="components/EventHandler.js"></script>
+	<script type="text/javascript" src="components/Piece.js"></script>
+	<script type="text/javascript" src="components/Board.js"></script>
+	<script type="text/javascript" src="components/Player.js"></script>
+	<script type="text/javascript" src="components/Game.js"></script>
+	<script type="text/javascript" src="components/Manager.js"></script>
+	<script type="text/javascript" src="Main.js"></script>
+</body>
+</html>

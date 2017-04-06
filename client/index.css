@@ -1,0 +1,35 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+h4 {
+	display: inline;
+}
+
+span {
+	display: inline;
+}
+
+#canvasContainer {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+.flex-container {
+	display: flex;
+	flex-direction: row;
+}
+
+/*.player {
+	flex: 1 1 auto;
+}*/
+
+.gameCanvas {
+	border: solid 3px 'gray';
+}
+
+.player.local {
+	border: solid 3px 'red';
+}
