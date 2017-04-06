@@ -8,7 +8,9 @@ class ConnectionManager {
 	}
 
 	connect(address) {
-		this.connection = io.connect('http://localhost:' + address, {reconnect: true})
+		// this.connection = io.connect('http://localhost:' + address, {reconnect: true})
+		// this.connection = io.connect(, {reconnect: true})
+		this.connection = io.connect()
 
 		this.connection.on('connect', () => {
 			console.log('Connected to server');
