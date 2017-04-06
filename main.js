@@ -10,15 +10,6 @@ const port = process.env.PORT; //PRODUCTION
 
 // io.set('transports',['xhr-polling']); //PRODUCTION
 
-app.use((req, res, next) => {
-  // Disable compression for socket.io
-  if (req.originalUrl.indexOf('socket.io') > -1) {
-    return next();
-  }
-
-  compression()(req, res, next);
-});
-
 //Used to store all currently running players sessions/connections
 const sessionsMap = new Map;
 

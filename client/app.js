@@ -4,7 +4,9 @@ playerLocal.element.classList.add('local');
 playerLocal.run();
 
 const connectionManager = new ConnectionManager(manager);
-connectionManager.connect(window.location.hostname)
+
+connectionManager.connect()
+// connectionManager.connect(window.location.hostname)
 // connectionManager.connect(9000)
 
 const playerKeys = [
