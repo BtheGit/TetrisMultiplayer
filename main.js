@@ -5,9 +5,10 @@ const io = require('socket.io')(server);
 const path = require('path');
 const Session = require('./components/Session');
 const Client = require('./components/Client');
-const port = process.env.PORT || 9000;
+const port = process.env.PORT || 9000; //PRODUCTION
+// const port = 9000; //DEVELOPMENT
 
-io.set('transports',['xhr-polling']);
+// io.set('transports',['xhr-polling']); //PRODUCTION
 
 //Used to store all currently running players sessions/connections
 const sessionsMap = new Map;
