@@ -4,7 +4,8 @@ playerLocal.element.classList.add('local');
 playerLocal.run();
 
 const connectionManager = new ConnectionManager(manager);
-connectionManager.connect('https://tetrisclone.herokuapp.com/' || 9000)
+connectionManager.connect()
+// connectionManager.connect('https://tetrisclone.herokuapp.com/' || 9000)
 
 const playerKeys = [
 	{
