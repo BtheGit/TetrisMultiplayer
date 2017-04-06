@@ -4,7 +4,7 @@ playerLocal.element.classList.add('local');
 playerLocal.run();
 
 const connectionManager = new ConnectionManager(manager);
-connectionManager.connect(9000)
+connectionManager.connect(process.env.PORT || 9000)
 
 const playerKeys = [
 	{
