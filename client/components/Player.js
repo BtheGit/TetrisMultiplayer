@@ -50,6 +50,7 @@ class Player {
 	handleDropCollision() {
 		this.activePiece.pos.y--;
 		this.board.mergePiece(this.activePiece)
+		this.eventHandler.emit('activePiecePos', this.activePiece.pos)
 		this.eventHandler.emit('boardMatrix', this.board.matrix)
 
 		this.resetPiece();

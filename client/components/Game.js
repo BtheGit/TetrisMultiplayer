@@ -56,31 +56,33 @@ class Game {
 	//On first run through needs to have a placeholder of 0
 	run(time = 0) {
 
-		//Not in use yet. Will allow the game to speed up
-		this.dropInterval = this.updateDropInterval();
-		
-		const deltaTime = time - this.lastTime;
-		this.lastTime = time;
-		this.dropCounter += deltaTime;
-		if(!this.paused) {
-			if (this.dropCounter > this.dropInterval) {
-				if(!this.player.isDead) {
-					//This last IF is because the program was running initially without a board or piece to merge and throwing an error
-					if(this.player.board.matrix.length && this.player.activePiece.matrix !== undefined) {
+		//This is an attempt to stop the glitching where localInstances of copies are automatically drawing drops between
+		//remote updates
+		//Note: It's not working. Perhaps I'm broadcasting redundantly instead. But this may still cut down on a bit cycles on the
+		//local client
+		if(this.props.isLocal) {
 
-						//This is an attempt to stop the glitchin where localInstances of copies are automatically drawing drops between
-						//remote updates
-						if(this.props.isLocal) {
+			//Not in use yet. Will allow the game to speed up
+			this.dropInterval = this.updateDropInterval();
+			
+			const deltaTime = time - this.lastTime;
+			this.lastTime = time;
+			this.dropCounter += deltaTime;
+			if(!this.paused) {
+				if (this.dropCounter > this.dropInterval) {
+					if(!this.player.isDead) {
+						//This last IF is because the program was running initially without a board or piece to merge and throwing an error
+						if(this.player.board.matrix.length && this.player.activePiece.matrix !== undefined) {
+
 							this.player.dropPiece();
+							this.dropCounter = 0;						
 						}
-						this.dropCounter = 0;						
 					}
 				}
 			}
+			requestAnimationFrame(this.run);					
 		}
-
 		this.draw();
-		requestAnimationFrame(this.run);					
 	}
 
 	updateDropInterval() {
