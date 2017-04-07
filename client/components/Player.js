@@ -133,8 +133,7 @@ class Player {
 			const newScore = this.score + (completedLines * 5) * (completedLines * 5);
 			this.updateScore(newScore);
 		}
-
-
+		this.updatePlayerLevel();
 	}
 
 	updateScore(newScore) {
@@ -142,10 +141,23 @@ class Player {
 		this.eventHandler.emit('score', newScore)
 	}
 
+	updatePlayerLevel() {
+		if(this.linesCleared <= 9) {
+			this.level = 0;
+		} else if (this.linesCleared >= 10 && this.linesCleared < 90) {
+			this.level = Math.floor(this.linesCleared / 10)
+		} else {
+			this.level = 9;
+		}
+	}
+
 	render() {
 		this.activePiece.render();
 		this.nextPiece.render();
-		canvasText(this.ctx, this.score, undefined, '25px', ((this.board.width * this.board.tileSize) + 60), 200, 'white', 'center')
+		canvasText(this.ctx, 'SCORE', undefined, '25px', ((this.board.width * this.board.tileSize) + 60), 170, 'yellow', 'center')
+		canvasText(this.ctx, this.score, undefined, '25px', ((this.board.width * this.board.tileSize) + 60), 210, 'white', 'center')
+		canvasText(this.ctx, 'LEVEL', undefined, '25px', ((this.board.width * this.board.tileSize) + 60), 310, 'yellow', 'center')
+		canvasText(this.ctx, this.level + 1, undefined, '25px', ((this.board.width * this.board.tileSize) + 60), 350, 'white', 'center')
 	}
 
 }

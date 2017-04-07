@@ -16,8 +16,6 @@ class Game {
 		this.paused = false;
 		//Used to control drop timing
 		this.DROP_INIT = 1000;
-		this.DROP_MAX = 50;
-
 		this.speedModifier = 1;
 
 		this.dropInterval = this.DROP_INIT; //in milliseconds
@@ -27,6 +25,8 @@ class Game {
 		this.run = this.run.bind(this);
 
 	}
+
+
 
 	drawGameBG() {
 		let ctx = this.props.ctx;
@@ -63,7 +63,7 @@ class Game {
 		if(this.props.isLocal) {
 
 			//Not in use yet. Will allow the game to speed up
-			this.dropInterval = this.updateDropInterval();
+			this.dropInterval = this.DROP_INIT * this.speedModifier;
 			
 			const deltaTime = time - this.lastTime;
 			this.lastTime = time;
@@ -82,12 +82,14 @@ class Game {
 			}
 			requestAnimationFrame(this.run);					
 		}
+		this.updateDropInterval()
 		this.draw();
 	}
 
 	updateDropInterval() {
 		// if (player.linesCleared )
-		return this.DROP_INIT * this.speedModifier;
+		return this.speedModifier = .7 - (this.player.level * 0.05);
+		console.log(this.speedModifier);
 	}
 
 	sendLocalState() {
