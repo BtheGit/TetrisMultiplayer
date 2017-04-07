@@ -1,5 +1,6 @@
 class Manager {
-	constructor(document) {
+	constructor(document, isLocal = false) {
+		this.isLocal = isLocal;
 		this.document = document;
 		this.template = this.document.querySelector('#player-template')
 		this.canvasContainer = document.getElementById('canvasContainer');
@@ -38,6 +39,7 @@ class Manager {
 		//create a bundle 
 		return {
 			element: element,
+			isLocal: this.isLocal,
 			CANVAS_WIDTH,
 			CANVAS_HEIGHT,
 			TILESIZE,

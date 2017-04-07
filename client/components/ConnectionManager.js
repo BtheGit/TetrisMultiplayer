@@ -7,9 +7,7 @@ class ConnectionManager {
 
 	}
 
-	connect(address) {
-		// this.connection = io.connect('http://localhost:' + address, {reconnect: true})
-		// this.connection = io.connect(, {reconnect: true})
+	connect() {
 		this.connection = io.connect()
 
 		this.connection.on('connect', () => {
@@ -122,7 +120,6 @@ class ConnectionManager {
 		})		
 	}
 
-	//CURRENTLY UNUSED
 	updateServer() {
 		//Compose packet with local game state to send to server to broadcast 
 		const stateBundle = this.localInstance.sendLocalState();

@@ -1,4 +1,4 @@
-const manager = new Manager(document);
+const manager = new Manager(document, true);
 const playerLocal = manager.createPlayer();
 playerLocal.element.classList.add('local');
 playerLocal.run();
@@ -6,8 +6,6 @@ playerLocal.run();
 const connectionManager = new ConnectionManager(manager);
 
 connectionManager.connect()
-// connectionManager.connect(window.location.hostname)
-// connectionManager.connect(9000)
 
 const playerKeys = [
 	{

@@ -9,7 +9,7 @@ class Game {
 
 		this.ctx = this.canvas.getContext('2d');
 		//Add the canvas context into the existing props defining canvas structure
-		this.props = Object.assign({}, props, {ctx: this.ctx})
+		this.props = Object.assign({}, props, {ctx: this.ctx});
 
 		this.player = new Player(this.props);
 		
@@ -22,9 +22,9 @@ class Game {
 
 		this.dropInterval = this.DROP_INIT; //in milliseconds
 		this.dropCounter = 0;
-		this.lastTime = 0
+		this.lastTime = 0;
 
-		this.run = this.run.bind(this)
+		this.run = this.run.bind(this);
 
 	}
 
@@ -46,15 +46,19 @@ class Game {
 	}
 
 	draw() {
+		cls(this.props);
 		this.drawGameBG();
-		this.player.board.render()
-		this.player.render()
+		this.player.board.render();
+		this.player.render();
 	}
 
+	//requestAnimationFrame returns callback with single argument of timestamp
+	//On first run through needs to have a placeholder of 0
 	run(time = 0) {
-		cls(this.props);
+
+		//Not in use yet. Will allow the game to speed up
 		this.dropInterval = this.updateDropInterval();
-		//is time argument baked into requestAnimationFrame? Seems like it must be.
+		
 		const deltaTime = time - this.lastTime;
 		this.lastTime = time;
 		this.dropCounter += deltaTime;
@@ -63,16 +67,20 @@ class Game {
 				if(!this.player.isDead) {
 					//This last IF is because the program was running initially without a board or piece to merge and throwing an error
 					if(this.player.board.matrix.length && this.player.activePiece.matrix !== undefined) {
-						this.player.dropPiece();
-						this.dropCounter = 0;
-						
+
+						//This is an attempt to stop the glitchin where localInstances of copies are automatically drawing drops between
+						//remote updates
+						if(this.props.isLocal) {
+							this.player.dropPiece();
+						}
+						this.dropCounter = 0;						
 					}
 				}
 			}
 		}
 
 		this.draw();
-		requestAnimationFrame(this.run);		
+		requestAnimationFrame(this.run);					
 	}
 
 	updateDropInterval() {

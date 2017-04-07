@@ -20,7 +20,7 @@ class Player {
 			this.activePiece.pos.x -= direction;
 			return; //So the position change isn't emitted below (it will be emitted in the reset function instead)
 		}
-			this.eventHandler.emit('activePiecePos', this.activePiece.pos)		
+		this.eventHandler.emit('activePiecePos', this.activePiece.pos)		
 	}
 
 	rotatePiece(direction) {
@@ -51,6 +51,7 @@ class Player {
 		this.activePiece.pos.y--;
 		this.board.mergePiece(this.activePiece)
 		this.eventHandler.emit('boardMatrix', this.board.matrix)
+
 		this.resetPiece();
 		this.checkCompletedLines();	
 	}
