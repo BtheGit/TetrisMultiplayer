@@ -87,6 +87,14 @@ class ConnectionManager {
 			})			
 		})
 
+		this.localInstance.player.eventHandler.listen('level', state => {
+			this.send({
+				type: 'clientUpdate',
+				key: 'level',
+				state,
+			})			
+		})
+
 		this.localInstance.player.eventHandler.listen('activePiecePos', state => {
 			this.send({
 				type: 'clientUpdate',
@@ -190,6 +198,9 @@ class ConnectionManager {
         }
         else if (data.key === 'score') {
         	player.updateScore(data.state);
+        }
+        else if (data.key === 'level') {
+        	player.level = data.state;
         }
 	}
 }

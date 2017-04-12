@@ -8,11 +8,42 @@ class Player {
 		this.isDead = false;
 		this.colorScheme = props.colorScheme;
 		this.board = new Board(props)
-		this.activePiece = new Piece(this.board);
-		this.nextPiece = new Piece(this.board);
+		this.pieceBag = this.generatePieceBag();
+		this.activePiece = this.getPiece();
+		this.nextPiece = this.getPiece();
 		this.nextPiece.pos.x = this.board.width + 2;
 		this.nextPiece.pos.y = 1;
 	}
+
+	//########################################
+	//I'm adding in the less randomized grab bag. I should have built this into a piece handling class from the get go so this is dirty. 
+	//Don't want to deal with it now.
+	//Will need to refactor if I keep using this code much longer.
+
+	//This creates a grabbag of 4 copies of each type of piee. Once the bag is depleted a new one is generated. Guaranteeing better
+	//piece distribution.
+	generatePieceBag() {
+		const pieceTypes = 'TLJSZOI';
+		let grabBag = [];
+		
+		for(let i = 0; i < 4; i++) {
+			const pieces = pieceTypes.split('');
+			for(let j = 0; j < 7; j++) {
+				grabBag.push(pieces.splice(Math.floor(Math.random() * pieces.length), 1));
+			}
+		}
+		grabBag = [].concat(...grabBag); //Flatten array of arrays of one letter each
+		return grabBag;
+	}
+
+	getPiece(bag = []) {
+		if (bag.length === 0) {
+			bag = this.generatePieceBag()
+		}
+		const piece = new Piece(this.board, bag.splice(0,1).join(''))
+		return piece;
+	}
+	//##########################################
 
 	movePiece(direction) {
 		this.activePiece.pos.x += direction;
@@ -94,8 +125,9 @@ class Player {
 
 	resetPiece() {
 		//find a more elegant method!		
-		this.activePiece = new Piece(this.board, this.nextPiece.type)
-		this.nextPiece = new Piece(this.board);
+		this.activePiece = this.nextPiece
+		this.activePiece.pos = {x: this.activePiece.initX, y: this.activePiece.initY};
+		this.nextPiece = this.getPiece();
 		this.nextPiece.pos.x = this.board.width + 2;
 		this.nextPiece.pos.y = 1;
 
@@ -132,8 +164,8 @@ class Player {
 			this.linesCleared += completedLines;
 			const newScore = this.score + (completedLines * 5) * (completedLines * 5);
 			this.updateScore(newScore);
+			this.updatePlayerLevel();
 		}
-		this.updatePlayerLevel();
 	}
 
 	updateScore(newScore) {
@@ -149,6 +181,7 @@ class Player {
 		} else {
 			this.level = 9;
 		}
+		this.eventHandler.emit('level', this.level)
 	}
 
 	render() {
