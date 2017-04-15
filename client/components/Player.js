@@ -189,10 +189,8 @@ class Player {
 	render() {
 		this.activePiece.render();
 		this.nextPiece.render();
-		canvasText(this.ctx, 'SCORE', undefined, '25px', ((this.board.width * this.board.tileSize) + 60), 170, 'yellow', 'center')
-		canvasText(this.ctx, this.score, undefined, '25px', ((this.board.width * this.board.tileSize) + 60), 210, 'white', 'center')
-		canvasText(this.ctx, 'LEVEL', undefined, '25px', ((this.board.width * this.board.tileSize) + 60), 310, 'yellow', 'center')
-		canvasText(this.ctx, this.level + 1, undefined, '25px', ((this.board.width * this.board.tileSize) + 60), 350, 'white', 'center')
 	}
+
+	
 
 }

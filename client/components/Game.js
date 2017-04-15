@@ -6,17 +6,18 @@ class Game {
 		this.canvas = this.element.querySelector('.gameCanvas');
 		this.canvas.width = props.CANVAS_WIDTH;
 		this.canvas.height = props.CANVAS_HEIGHT;
-
-		this.ctx = this.canvas.getContext('2d');
+		
 		//Add the canvas context into the existing props defining canvas structure
+		this.ctx = this.canvas.getContext('2d');
 		this.props = Object.assign({}, props, {ctx: this.ctx});
 
 		this.player = new Player(this.props);
 		
 		this.paused = false;
+
 		//Used to control drop timing
 		this.DROP_INIT = 1000;
-		this.initSpeed = .7
+		this.initSpeed = .8;
 		this.speedModifier = this.initSpeed;
 
 		this.dropInterval = this.DROP_INIT * this.speedModifier; //in milliseconds
@@ -47,8 +48,10 @@ class Game {
 
 		canvasText(this.ctx, 'SCORE', undefined, '25px', ((this.player.board.width * this.player.board.tileSize) + 60), 170, 'yellow', 'center')
 		canvasText(this.ctx, this.player.score, undefined, '25px', ((this.player.board.width * this.player.board.tileSize) + 60), 210, 'white', 'center')
-		canvasText(this.ctx, 'LEVEL', undefined, '25px', ((this.player.board.width * this.player.board.tileSize) + 60), 310, 'yellow', 'center')
-		canvasText(this.ctx, this.player.level + 1, undefined, '25px', ((this.player.board.width * this.player.board.tileSize) + 60), 350, 'white', 'center')
+		canvasText(this.ctx, 'LINES', undefined, '25px', ((this.player.board.width * this.player.board.tileSize) + 60), 250, 'yellow', 'center')
+		canvasText(this.ctx, this.player.linesCleared, undefined, '25px', ((this.player.board.width * this.player.board.tileSize) + 60), 290, 'white', 'center')
+		canvasText(this.ctx, 'LEVEL', undefined, '25px', ((this.player.board.width * this.player.board.tileSize) + 60), 330, 'yellow', 'center')
+		canvasText(this.ctx, this.player.level + 1, undefined, '25px', ((this.player.board.width * this.player.board.tileSize) + 60), 370, 'white', 'center')
 
 	}
 
@@ -59,8 +62,7 @@ class Game {
 			this.drawPaused();
 		} else {
 			this.player.board.render();
-			this.player.render();
-			
+			this.player.render();			
 		}		
 	}
 
@@ -115,7 +117,7 @@ class Game {
 
 	updateDropInterval() {
 		// if (player.linesCleared) <- Could add handling only in this case for efficiency
-		this.speedModifier = .7 - (this.player.level * 0.05);
+		this.speedModifier = .8 - (this.player.level * 0.07);
 	}
 
 	sendLocalState() {
