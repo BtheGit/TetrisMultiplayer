@@ -162,17 +162,27 @@ class Player {
 			
 		}
 		if(completedLines) {
-			this.linesCleared += completedLines;
-			const newScore = this.score + (completedLines * 5) * (completedLines * 5);
-			this.updateScore(newScore);
+			const newLines = this.linesCleared + completedLines;
+			this.setLines(newLines);
+			this.eventHandler.emit('linesCleared', this.linesCleared)
+			this.updateScore(completedLines);
 			this.lastClearHeight = completedLines; //Track previous clear to award bonus for back to back tetrises
 			this.updatePlayerLevel();
 		}
 	}
 
-	updateScore(newScore) {
-		this.score = newScore;
+	setLines(lines) {
+		this.linesCleared = lines;
+	}
+
+	updateScore(completedLines) {
+		const newScore = this.score + (completedLines * 5) * (completedLines * 5);
+		this.setScore(newScore);
 		this.eventHandler.emit('score', newScore)
+	}	
+
+	setScore(newScore) {
+		this.score = newScore;
 	}
 
 	updatePlayerLevel() {
@@ -191,6 +201,6 @@ class Player {
 		this.nextPiece.render();
 	}
 
-	
+
 
 }

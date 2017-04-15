@@ -128,16 +128,23 @@ class Game {
 			activePiecePos: this.player.activePiece.pos,
 			nextPieceMatrix: this.player.nextPiece.matrix,
 			score: this.player.score,
+			linesCleared: this.player.linesCleared,
+			pauseStatus: this.paused,
+			level: this.player.level,
 		}
 	}
 
 	receiveRemoteState(state) {
 		//Update local copies of remote instance's state
+
 		this.player.board.matrix = Object.assign(state.boardMatrix);
 		this.player.activePiece.matrix = Object.assign(state.activePieceMatrix);
 		this.player.activePiece.pos = Object.assign(state.activePiecePos);
 		this.player.nextPiece.matrix = Object.assign(state.nextPieceMatrix);
-		this.player.updateScore(Object.assign(state.score));
+		this.player.score = state.score;
+		this.player.linesCleared = state.linesCleared;
+		this.player.level = state.level;
+		this.paused = state.pauseStatus;
 		this.draw();
 	}
 

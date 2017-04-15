@@ -9,7 +9,10 @@ class Client {
 			activePieceMatrix: [],
 			activePiecePos: {},
 			nextPieceMatrix: [],
+			level: 0,
 			score: 0,
+			linesCleared: 0,
+			pauseStatus: false,
 		}
 	}
 

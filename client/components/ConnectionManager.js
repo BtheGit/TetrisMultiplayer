@@ -68,11 +68,13 @@ class ConnectionManager {
 		//Have server broadcast state for new instances to overwrite defaults on initializing them
 		const player = this.localInstance.player;
 
+		player.eventHandler.emit('pauseStatus', this.localInstance.paused)
 		player.eventHandler.emit('boardMatrix', player.board.matrix); 
 		player.eventHandler.emit('activePieceMatrix', player.activePiece.matrix);	
 		player.eventHandler.emit('nextPieceMatrix', player.nextPiece.matrix);
 		player.eventHandler.emit('score', player.score);
-		player.eventHandler.emit('activePiecePos', player.activePiece.pos);					
+		player.eventHandler.emit('linesCleared', player.linesCleared);
+		player.eventHandler.emit('activePiecePos', player.activePiece.pos);				
 	}
 
 
@@ -83,6 +85,14 @@ class ConnectionManager {
 			this.send({
 				type: 'clientUpdate',
 				key: 'score',
+				state,
+			})			
+		})
+
+		this.localInstance.player.eventHandler.listen('linesCleared', state => {
+			this.send({
+				type: 'clientUpdate',
+				key: 'linesCleared',
 				state,
 			})			
 		})
@@ -205,7 +215,10 @@ class ConnectionManager {
         	player.board.matrix = data.state;
         }
         else if (data.key === 'score') {
-        	player.updateScore(data.state);
+        	player.setScore(data.state);
+        }
+        else if (data.key === 'linesCleared') {
+        	player.setLines(data.state);
         }
         else if (data.key === 'level') {
         	player.level = data.state;
