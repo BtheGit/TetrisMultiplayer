@@ -36,8 +36,8 @@ class Game {
 		//Playing area black
 		ctx.fillStyle = 'rgba(0,0,0, 1)';
 		ctx.fillRect(0,0, this.props.BOARD_WIDTH * this.props.TILESIZE + 2, this.props.BOARD_HEIGHT * this.props.TILESIZE);	
-		ctx.strokeStyle = 'white';
 		//Border of playing area
+		ctx.strokeStyle = 'white';
 		ctx.strokeRect(0,0, this.props.BOARD_WIDTH * this.props.TILESIZE + 2, this.props.BOARD_HEIGHT * this.props.TILESIZE);
 		//Border and fill of preview area
 		ctx.strokeRect(this.props.TILESIZE * this.props.BOARD_WIDTH + 10, 10, 100, 100);
@@ -48,8 +48,21 @@ class Game {
 	draw() {
 		cls(this.props);
 		this.drawGameBG();
-		this.player.board.render();
-		this.player.render();
+		if(this.paused && !this.player.isDead) {
+			this.drawPaused();
+		} else {
+			this.player.board.render();
+			this.player.render();		
+		}
+	}
+
+	//Works locally but not remotely
+	drawPaused() {
+		let ctx = this.props.ctx;
+		ctx.strokeStyle = 'white';
+		//Border of playing area
+		ctx.strokeRect(1 * this.props.TILESIZE, 8 * this.props.TILESIZE, 10 * this.props.TILESIZE, 4 * this.props.TILESIZE);
+		canvasText(ctx, 'PAUSED', undefined, '25px', 6 * this.props.TILESIZE, 10.5 * this.props.TILESIZE, 'white', 'center')		
 	}
 
 	//requestAnimationFrame returns callback with single argument of timestamp
@@ -76,20 +89,21 @@ class Game {
 
 							this.player.dropPiece();
 							this.dropCounter = 0;						
+							this.updateDropInterval()
 						}
 					}
 				}
 			}
 			requestAnimationFrame(this.run);					
 		}
-		this.updateDropInterval()
-		this.draw();
+
+		this.draw();			
+		
 	}
 
 	updateDropInterval() {
-		// if (player.linesCleared )
-		return this.speedModifier = .7 - (this.player.level * 0.05);
-		console.log(this.speedModifier);
+		// if (player.linesCleared) <- Could add handling only in this case for efficiency
+		this.speedModifier = .7 - (this.player.level * 0.05);
 	}
 
 	sendLocalState() {

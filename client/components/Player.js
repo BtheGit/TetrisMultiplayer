@@ -36,11 +36,11 @@ class Player {
 		return grabBag;
 	}
 
-	getPiece(bag = []) {
-		if (bag.length === 0) {
-			bag = this.generatePieceBag()
+	getPiece() {
+		if (!this.pieceBag.length) {
+			this.pieceBag = this.generatePieceBag()
 		}
-		const piece = new Piece(this.board, bag.splice(0,1).join(''))
+		const piece = new Piece(this.board, this.pieceBag.splice(0,1).join(''))
 		return piece;
 	}
 	//##########################################
