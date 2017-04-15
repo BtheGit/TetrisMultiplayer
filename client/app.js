@@ -1,5 +1,5 @@
 const manager = new Manager(document, true);
-const playerLocal = manager.createPlayer();
+const playerLocal = manager.createPlayer(true);
 playerLocal.element.classList.add('local');
 playerLocal.run();
 

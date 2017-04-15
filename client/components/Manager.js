@@ -3,7 +3,10 @@ class Manager {
 		this.isLocal = isLocal;
 		this.document = document;
 		this.template = this.document.querySelector('#player-template')
-		this.canvasContainer = document.getElementById('canvasContainer');
+		// this.canvasContainer = document.getElementById('canvasContainer');
+		this.localContainer = document.getElementById('localContainer');
+		this.remoteContainer = document.getElementById('remoteContainer');
+
 		this.instances = [];
 	}
 
@@ -50,15 +53,17 @@ class Manager {
 		
 	}
 
-	createPlayer() {
+	createPlayer(local = false) {
 		const element = document.importNode(this.template.content, true)
 									 .children[0];
-
 		const game = new Game(this.createPropsBundle(element, 0)); //need to dynamically change index later for color change
 
-
-		//Add Game Instance to flex-box container
-		this.canvasContainer.appendChild(game.element);
+		//Add Game Instance to row based on whether or not is the local instance
+		if (local) {
+			this.localContainer.appendChild(game.element);	
+		} else {
+			this.remoteContainer.appendChild(game.element);
+		}
 
 		this.instances.push(game);
 
@@ -67,7 +72,11 @@ class Manager {
 
 	removePlayer(game) {
 		console.log('removing remote game')
-		this.canvasContainer.removeChild(game.element)
+		if (game.element.classList.contains('local')) {
+			this.localContainer.removeChild(game.element);
+		} else {
+			this.remoteContainer.removeChild(game.element);
+		}
 	}
 
 	// sortPlayers(players) {

@@ -1,35 +1,123 @@
-* {
-	padding: 0;
+html, body {
+	height: 100%;
 	margin: 0;
-}
-
-h4 {
-	display: inline;
+	padding: 0;
+	background: linear-gradient(45deg, #2c43d6 2%,#2c43d6 14%,#2da8d8 40%,#35d6ff 51%,#e3f5ab 84%,#f8ffe8 100%); 
 }
 
 span {
 	display: inline;
 }
 
-#canvasContainer {
+.flex-container-rows {
+	height: 100%;
 	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
+	flex-direction: column;
 }
 
-.flex-container {
+#flex-container-localRow {
+	z-index: 10;
+	height: 100%;
+	width:100%;
+	overflow: hidden;
 	display: flex;
 	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: center;
 }
 
-/*.player {
-	flex: 1 1 auto;
-}*/
-
-.gameCanvas {
-	border: solid 3px 'gray';
+.textBox-left {
+	height: 100%;
+	width: 33%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;	
 }
 
-.player.local {
-	border: solid 3px 'red';
+.controls {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	flex-grow: 2;
+	font-family: 'Audiowide', cursive;
+	color: #FFEC92;
+	font-size: 1.5rem;
+
 }
+
+.controls h2 {
+	margin: 0;
+	padding: 0;
+}
+
+.controls p {	
+	margin: 0;
+	padding: 0;
+}
+
+.logoFlexBox {
+	height: 50%;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.tetrisLogo {
+	width:80%;
+}
+
+.mainGame {
+	height: 100%;
+	width: 33%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: rgba(84, 84, 255, .2);	
+}
+
+#chatBox {
+	height: 100%;
+	width: 33%;
+}
+
+
+#flex-container-remoteRow {
+	height:100%;
+	width:100%;
+	overflow: hidden;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;	
+}
+
+#remoteContainer {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	overflow: hidden;
+	align-items: center;
+	justify-content: space-around;			
+}
+
+#localContainer .gameCanvas {
+	border: 3px solid yellow;
+}
+
+#remoteContainer .gameCanvas {
+	height: 100%;
+	display: block;
+	margin: auto;
+	border: 5px solid black;
+}
+
+
