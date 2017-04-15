@@ -44,6 +44,12 @@ class Game {
 		ctx.strokeRect(this.props.TILESIZE * this.props.BOARD_WIDTH + 10, 10, 100, 100);
 		ctx.fillStyle = 'rgba(100,100,150, .5)';
 		ctx.fillRect(this.props.TILESIZE * this.props.BOARD_WIDTH + 10, 10, 100, 100);	
+
+		canvasText(this.ctx, 'SCORE', undefined, '25px', ((this.player.board.width * this.player.board.tileSize) + 60), 170, 'yellow', 'center')
+		canvasText(this.ctx, this.player.score, undefined, '25px', ((this.player.board.width * this.player.board.tileSize) + 60), 210, 'white', 'center')
+		canvasText(this.ctx, 'LEVEL', undefined, '25px', ((this.player.board.width * this.player.board.tileSize) + 60), 310, 'yellow', 'center')
+		canvasText(this.ctx, this.player.level + 1, undefined, '25px', ((this.player.board.width * this.player.board.tileSize) + 60), 350, 'white', 'center')
+
 	}
 
 	draw() {
