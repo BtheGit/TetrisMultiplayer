@@ -16,9 +16,10 @@ class Game {
 		this.paused = false;
 		//Used to control drop timing
 		this.DROP_INIT = 1000;
-		this.speedModifier = 1;
+		this.initSpeed = .7
+		this.speedModifier = this.initSpeed;
 
-		this.dropInterval = this.DROP_INIT; //in milliseconds
+		this.dropInterval = this.DROP_INIT * this.speedModifier; //in milliseconds
 		this.dropCounter = 0;
 		this.lastTime = 0;
 
@@ -48,19 +49,25 @@ class Game {
 	draw() {
 		cls(this.props);
 		this.drawGameBG();
-		if(this.paused && !this.player.isDead) {
+		if(this.paused) {
 			this.drawPaused();
 		} else {
 			this.player.board.render();
-			this.player.render();		
-		}
+			this.player.render();
+			
+		}		
 	}
 
-	//Works locally but not remotely
+	pause() {
+		this.paused = !this.paused;
+		this.player.eventHandler.emit('pauseStatus', this.paused)
+	}
+
 	drawPaused() {
 		let ctx = this.props.ctx;
+		ctx.fillStyle = 'rgba(100,100,150, .85)';
+		ctx.fillRect(1 * this.props.TILESIZE, 8 * this.props.TILESIZE, 10 * this.props.TILESIZE, 4 * this.props.TILESIZE)
 		ctx.strokeStyle = 'white';
-		//Border of playing area
 		ctx.strokeRect(1 * this.props.TILESIZE, 8 * this.props.TILESIZE, 10 * this.props.TILESIZE, 4 * this.props.TILESIZE);
 		canvasText(ctx, 'PAUSED', undefined, '25px', 6 * this.props.TILESIZE, 10.5 * this.props.TILESIZE, 'white', 'center')		
 	}
@@ -75,7 +82,7 @@ class Game {
 		//local client
 		if(this.props.isLocal) {
 
-			//Not in use yet. Will allow the game to speed up
+			//Allow the game to speed up incrementally based on current level (Maxes at 10)
 			this.dropInterval = this.DROP_INIT * this.speedModifier;
 			
 			const deltaTime = time - this.lastTime;
@@ -89,14 +96,13 @@ class Game {
 
 							this.player.dropPiece();
 							this.dropCounter = 0;						
-							this.updateDropInterval()
 						}
 					}
 				}
 			}
 			requestAnimationFrame(this.run);					
 		}
-
+		this.updateDropInterval()
 		this.draw();			
 		
 	}
@@ -126,7 +132,5 @@ class Game {
 		this.player.updateScore(Object.assign(state.score));
 		this.draw();
 	}
-
-
 
 }

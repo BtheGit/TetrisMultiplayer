@@ -4,6 +4,7 @@ class Player {
 		this.eventHandler = new EventHandler();		
 		this.score = 0;
 		this.linesCleared = 0;
+		this.lastClearHeight = 0;
 		this.level = 0;
 		this.isDead = false;
 		this.colorScheme = props.colorScheme;
@@ -164,6 +165,7 @@ class Player {
 			this.linesCleared += completedLines;
 			const newScore = this.score + (completedLines * 5) * (completedLines * 5);
 			this.updateScore(newScore);
+			this.lastClearHeight = completedLines; //Track previous clear to award bonus for back to back tetrises
 			this.updatePlayerLevel();
 		}
 	}

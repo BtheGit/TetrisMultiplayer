@@ -125,6 +125,14 @@ class ConnectionManager {
 				key: 'boardMatrix',
 				state,
 			})
+		})
+
+		this.localInstance.player.eventHandler.listen('pauseStatus', state => {
+			this.send({
+				type: 'clientUpdate',
+				key: 'pauseStatus',
+				state,
+			})
 		})		
 	}
 
@@ -201,6 +209,9 @@ class ConnectionManager {
         }
         else if (data.key === 'level') {
         	player.level = data.state;
+        } 
+        else if (data.key === 'pauseStatus') {
+        	game.paused = data.state;
         }
 	}
 }

@@ -45,7 +45,7 @@ function handleKeydown(event) {
 				player.instantDrop();
 			} else if (event.keyCode === key.pause) {
 				//'p' for pause
-				playerLocal.paused = !playerLocal.paused;
+				playerLocal.pause();
 			}
 		}
 	})
