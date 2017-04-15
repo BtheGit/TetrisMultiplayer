@@ -182,7 +182,9 @@ class Player {
 	}
 
 	calcScore(completedLines) {
-		const multiplier = completedLines === 1 ? 40 : completedLines === 2 ? 100 : completedLines === 3 ? 300 : 1200;
+		//This obnoxiously long ternary function obviously determines the multiplier based on previous number of rows
+		//The one thing to note is that if the previous clear was a tetris and this one was as well, the multiplier is even higher
+		const multiplier = completedLines === 1 ? 40 : completedLines === 2 ? 100 : completedLines === 3 ? 300 : this.lastClearHeight === 4 ? 1800 : 1200;
 		const points = multiplier * (this.level + 1)
 		return this.score + points;
 	}	
