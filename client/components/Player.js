@@ -176,9 +176,15 @@ class Player {
 	}
 
 	updateScore(completedLines) {
-		const newScore = this.score + (completedLines * 5) * (completedLines * 5);
+		const newScore = this.calcScore(completedLines);
 		this.setScore(newScore);
 		this.eventHandler.emit('score', newScore)
+	}
+
+	calcScore(completedLines) {
+		const multiplier = completedLines === 1 ? 40 : completedLines === 2 ? 100 : completedLines === 3 ? 300 : 1200;
+		const points = multiplier * (this.level + 1)
+		return this.score + points;
 	}	
 
 	setScore(newScore) {
