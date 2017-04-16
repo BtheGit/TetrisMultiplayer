@@ -35,7 +35,6 @@ class Manager {
 			},
 		]
 
-		//get the canvas context
 		const CANVAS_WIDTH = TILESIZE * (BOARD_WIDTH + 6);
 		const CANVAS_HEIGHT = TILESIZE * BOARD_HEIGHT;
 

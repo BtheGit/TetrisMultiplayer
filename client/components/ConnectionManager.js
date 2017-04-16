@@ -176,6 +176,8 @@ class ConnectionManager {
 			}
 		})
 
+        resizeCanvas(); //Immediately resize new copies of remote games to fit window
+
 		//Create an array of the Map entries corresponding to each remote client
 		const entries = [...this.peers.entries()];
 		//Remove any client from the local DOM that have disconnected from the server
@@ -190,7 +192,6 @@ class ConnectionManager {
         // const local = this.manager.instances[0];
         // const sorted = instances.clients.map(client => this.peers.get(client.id) || local);
         // this.manager.sortPlayers(sorted);	
-
 	}	
 
 	//Update local copies of remote instances with state changes.

@@ -7,6 +7,8 @@ const connectionManager = new ConnectionManager(manager);
 
 connectionManager.connect()
 
+resizeCanvas(); //Immediately scales local player's canvas to fit
+
 const playerKeys = [
 	{
 		left: 65,
@@ -19,6 +21,7 @@ const playerKeys = [
 	}
 ]
 
+window.addEventListener("resize", resizeCanvas, false);
 document.addEventListener('keydown', handleKeydown);
 
 function handleKeydown(event) {
@@ -51,15 +54,14 @@ function handleKeydown(event) {
 	})
 }
 
-
-//todo make drop interval dynamic based on player progress and have score increased as
-//a multiplier of that somehow
-//todo, accelerate a fixed number of times with score multiplier increase as well
-
 //TODO: improve wall kick handling (sometimes it kicks the piece two squares over without even rotating)
 
-//todo Add in other player preview screen to show their action
 //Is there a way to prerender canvases to return snapshots of the other players score?
 //That would be way easier than rendering two more canvases concurrently
 
-//TODO: Add in player names
+//TODO: Add Menu Screen (Homepage)
+//		-Users can see open rooms
+//		-can join a room or create a new one
+//		-when they join/create, they are prompted to enter a username
+//TODO: Add in User name display in game screen
+//TODO: Build chat box
