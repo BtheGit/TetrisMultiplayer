@@ -53,11 +53,20 @@ span {
 .controls h2 {
 	margin: 0;
 	padding: 0;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 }
 
-.controls p {	
+.controls p {
+	font-size: 1em;	
 	margin: 0;
 	padding: 0;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 }
 
 .logoFlexBox {

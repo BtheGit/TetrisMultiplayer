@@ -1,52 +1,84 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>TetrisClone by Brendan</title>
-	<link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="index.css">
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Tetris Online Server</title>
+		<style>
+			html, body {
+				height: 100%;
+				width: 100%;
+			}
 
-</head>
-<body>
+			#menuContainer {
+				height: 50%;
+				width: 70%;
+				background-color: #C6C6E9;
+				color: #1914EF;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Tetris</h1>
+		<div id="menuContainer"></div>
+		<div class="newRoomContainer">
+			<a href="/room">Create New Room</a>
+		</div>
 
-	<div class="flex-container-rows">
-		<div id="flex-container-localRow">
-			<div class="textBox-left">
-				<div class="logoFlexBox">
-					<img class="tetrisLogo" src="media/logo.png">
-				</div>
-				<div class="controls">
-					<h2>Controls</h2>
-					<p><span>Left: </span>'a'</p>
-					<p><span>Right: </span>'d'</p>
-					<p><span>Down: </span>'s'</p>
-					<p><span>Quick Drop: </span>'Space bar'</p>
-					<p><span>Rotate Clockwise: </span>'e'</p>
-					<p><span>Rotate Counter-Clockwise: </span>'q'</p>
-					<p><span>Pause: </span>'p'</p>
-				</div>
-			</div>
-			<div id="localContainer" class="mainGame"></div>
-			<div id="chatBox"></div>
-		</div>
-		<div id="flex-container-remoteRow">
-			<div id="remoteContainer" class="remoteGames"></div>
-		</div>
-	</div>
+		<script>
+			const menuContainer = document.getElementById('menuContainer'); 
+			window.addEventListener('load', getMenuData)
 
-	<template id="player-template">
-		<div class="player game">
-			<canvas class="gameCanvas"></canvas>
-		</div>
-	</template>
-	<script src="/socket.io/socket.io.js"></script>
-	<script type="text/javascript" src="utilities/utilities.js"></script>
-	<script type="text/javascript" src="components/ConnectionManager.js"></script>
-	<script type="text/javascript" src="components/EventHandler.js"></script>
-	<script type="text/javascript" src="components/Piece.js"></script>
-	<script type="text/javascript" src="components/Board.js"></script>
-	<script type="text/javascript" src="components/Player.js"></script>
-	<script type="text/javascript" src="components/Game.js"></script>
-	<script type="text/javascript" src="components/Manager.js"></script>
-	<script type="text/javascript" src="app.js"></script>
-</body>
+			const updateChecker = setInterval(getMenuData, 1000)
+
+			function getMenuData(event) {
+				var req = new XMLHttpRequest();
+				req.open('GET', '/menu-update', true);
+
+				req.onload = function() {
+				  if (req.status >= 200 && req.status < 400) {
+				    // Success!
+				    var data = JSON.parse(req.responseText);
+				    updateMenu(data)
+
+				  } else {
+				    // We reached our target server, but it returned an error
+
+				  }
+				};
+
+				req.onerror = function() {
+				  // There was a connection error of some sort
+				};
+
+				req.send();		
+			}
+
+			function updateMenu(array = []) {
+				let content = '';
+				if(array.length) {
+					//loop through array and create divs representing rooms with links
+					for (let i = 0; i < array.length; i++) {
+						const room =
+									 `<div class="roomContainer">
+										<div class="roomName">
+											Room: ${array[i].room}
+										</div>
+										<div class="roomPop">
+											Players: ${array[i].pop} / 5
+										</div>
+										<div class="roomLink">
+											<a href="/room#${array[i].room}">PLAY</a>
+										</div>
+									</div>`;
+						content += room
+					}
+				} else {
+					//create single div showing no rooms available
+					content=`<div class='roomContainer'>NO ROOMS ACTIVE</div>`
+				}
+				menuContainer.innerHTML = content;
+			}
+
+		</script>
+	</body>
 </html>
