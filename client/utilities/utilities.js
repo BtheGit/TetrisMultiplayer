@@ -31,12 +31,12 @@ function drawMatrix(
 	}
 }
 
-function canvasText(ctx, text, font ='Arial', size, startX, startY, fillStyle, textAlign = "start") 
+function canvasText(ctx, text, font ='Arial', size, startX, startY, maxWidth, fillStyle, textAlign = "start") 
 {
 	ctx.font = size + " " + font;
 	ctx.fillStyle = fillStyle;
 	ctx.textAlign = textAlign;
-	ctx.fillText(text, startX, startY, 80)
+	ctx.fillText(text, startX, startY, maxWidth)
 }
 
 function cls(canvas) 

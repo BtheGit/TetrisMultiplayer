@@ -46,12 +46,12 @@ class Game {
 		ctx.fillStyle = 'rgba(100,100,150, .5)';
 		ctx.fillRect(this.props.TILESIZE * this.props.BOARD_WIDTH + 10, 10, 100, 100);	
 
-		canvasText(this.ctx, 'SCORE', 'Audiowide', '25px', ((this.player.board.width * this.player.board.tileSize) + 60), 170, 'yellow', 'center')
-		canvasText(this.ctx, this.player.score, 'Audiowide', '20px', ((this.player.board.width * this.player.board.tileSize) + 60), 210, 'white', 'center')
-		canvasText(this.ctx, 'LINES', 'Audiowide', '25px', ((this.player.board.width * this.player.board.tileSize) + 60), 250, 'yellow', 'center')
-		canvasText(this.ctx, this.player.linesCleared, 'Audiowide', '25px', ((this.player.board.width * this.player.board.tileSize) + 60), 290, 'white', 'center')
-		canvasText(this.ctx, 'LEVEL', 'Audiowide', '25px', ((this.player.board.width * this.player.board.tileSize) + 60), 330, 'yellow', 'center')
-		canvasText(this.ctx, this.player.level + 1, 'Audiowide', '25px', ((this.player.board.width * this.player.board.tileSize) + 60), 370, 'white', 'center')
+		canvasText(this.ctx, 'SCORE', 'Audiowide', '25px', ((this.player.board.width * this.player.board.tileSize) + 60), 170, 80,'yellow', 'center')
+		canvasText(this.ctx, this.player.score, 'Audiowide', '20px', ((this.player.board.width * this.player.board.tileSize) + 60), 210, 80,'white', 'center')
+		canvasText(this.ctx, 'LINES', 'Audiowide', '25px', ((this.player.board.width * this.player.board.tileSize) + 60), 250, 80, 'yellow', 'center')
+		canvasText(this.ctx, this.player.linesCleared, 'Audiowide', '25px', ((this.player.board.width * this.player.board.tileSize) + 60), 290, 80,'white', 'center')
+		canvasText(this.ctx, 'LEVEL', 'Audiowide', '25px', ((this.player.board.width * this.player.board.tileSize) + 60), 330, 80,'yellow', 'center')
+		canvasText(this.ctx, this.player.level + 1, 'Audiowide', '25px', ((this.player.board.width * this.player.board.tileSize) + 60), 370, 80,'white', 'center')
 
 	}
 
@@ -60,6 +60,10 @@ class Game {
 		this.drawGameBG();
 		if(this.paused) {
 			this.drawPaused();
+		} else if (this.player.isDead){
+			this.player.board.render();
+			this.player.render();
+			this.drawDead();
 		} else {
 			this.player.board.render();
 			this.player.render();			
@@ -77,7 +81,16 @@ class Game {
 		ctx.fillRect(1 * this.props.TILESIZE, 8 * this.props.TILESIZE, 10 * this.props.TILESIZE, 4 * this.props.TILESIZE)
 		ctx.strokeStyle = 'white';
 		ctx.strokeRect(1 * this.props.TILESIZE, 8 * this.props.TILESIZE, 10 * this.props.TILESIZE, 4 * this.props.TILESIZE);
-		canvasText(ctx, 'PAUSED', undefined, '25px', 6 * this.props.TILESIZE, 10.5 * this.props.TILESIZE, 'white', 'center')		
+		canvasText(ctx, 'PAUSED', 'Audiowide', '25px', 6 * this.props.TILESIZE, 10.5 * this.props.TILESIZE, 80, 'white', 'center')		
+	}
+
+	drawDead() {
+		let ctx = this.props.ctx;
+		ctx.fillStyle = 'rgba(100,100,150, .85)';
+		ctx.fillRect(1 * this.props.TILESIZE, 8 * this.props.TILESIZE, 10 * this.props.TILESIZE, 4 * this.props.TILESIZE)
+		ctx.strokeStyle = 'white';
+		ctx.strokeRect(1 * this.props.TILESIZE, 8 * this.props.TILESIZE, 10 * this.props.TILESIZE, 4 * this.props.TILESIZE);
+		canvasText(ctx, 'GAME OVER', 'Audiowide', '60px', 6 * this.props.TILESIZE, 11 * this.props.TILESIZE, 180, 'white', 'center')			
 	}
 
 	//requestAnimationFrame returns callback with single argument of timestamp
