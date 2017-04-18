@@ -35,10 +35,25 @@ html, body {
 	box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
 
+#menuContainer::-webkit-scrollbar {
+    width: 1em;
+}
+ 
+#menuContainer::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+#menuContainer::-webkit-scrollbar-thumb {
+  background-color: #F0BB18;
+  outline: 1px solid slategrey;
+
+}
+
 .roomContainer {
 	display: flex;
 	flex-direction: row;
 	margin: 10px;
+	align-items: center;
 }
 
 .roomContainer:nth-child(even) {
@@ -48,6 +63,7 @@ html, body {
 .roomName {
 	width:60% ;
 	font-weight: bold;
+	margin
 }
 
 .roomPop {
