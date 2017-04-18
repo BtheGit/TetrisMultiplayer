@@ -2,26 +2,17 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>Tetris Online Server</title>
-		<style>
-			html, body {
-				height: 100%;
-				width: 100%;
-			}
-
-			#menuContainer {
-				height: 50%;
-				width: 70%;
-				background-color: #C6C6E9;
-				color: #1914EF;
-			}
-		</style>
+		<title>Tetris Online</title>
+		<link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
+		<link rel="stylesheet" href="index.css">	
 	</head>
 	<body>
-		<h1>Tetris</h1>
+		<div id="logoFlexBox">
+			<img id="tetrisLogo" src="media/logo.png">
+		</div>
 		<div id="menuContainer"></div>
-		<div class="newRoomContainer">
-			<a href="/room">Create New Room</a>
+		<div id="newRoomContainer">
+			<a href="/room" class="action-button shadow">Create New Room</a>
 		</div>
 
 		<script>
@@ -38,6 +29,7 @@
 				  if (req.status >= 200 && req.status < 400) {
 				    // Success!
 				    var data = JSON.parse(req.responseText);
+				    //Generate innerHTML of menuContainer div to represent selectable rooms
 				    updateMenu(data)
 
 				  } else {
@@ -56,25 +48,27 @@
 			function updateMenu(array = []) {
 				let content = '';
 				if(array.length) {
-					//loop through array and create divs representing rooms with links
 					for (let i = 0; i < array.length; i++) {
+						const link = array[i].pop >= 5 
+														? `<p class="full-button">ROOM FULL</p>` 
+														: `<a class="join-button" href="/room#${array[i].room}">JOIN</a>`
 						const room =
 									 `<div class="roomContainer">
 										<div class="roomName">
-											Room: ${array[i].room}
+											${array[i].room}
 										</div>
 										<div class="roomPop">
-											Players: ${array[i].pop} / 5
+											${array[i].pop} / 5
 										</div>
 										<div class="roomLink">
-											<a href="/room#${array[i].room}">PLAY</a>
+											${link}
 										</div>
 									</div>`;
 						content += room
 					}
 				} else {
 					//create single div showing no rooms available
-					content=`<div class='roomContainer'>NO ROOMS ACTIVE</div>`
+					content=`<div class='roomContainer'>NO ACTIVE ROOMS</div>`
 				}
 				menuContainer.innerHTML = content;
 			}
