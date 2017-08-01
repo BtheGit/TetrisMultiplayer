@@ -5,8 +5,8 @@ const io = require('socket.io')(server);
 const path = require('path');
 const Session = require('./components/Session');
 const Client = require('./components/Client');
-const port = process.env.PORT; //PRODUCTION
-// const port = 9000; //DEVELOPMENT
+// const port = process.env.PORT; //PRODUCTION
+const port = 9000; //DEVELOPMENT
 
 // io.set('transports',['xhr-polling']); //PRODUCTION
 
@@ -49,7 +49,9 @@ server.listen(port);
 function parseMapForDB(map) {
 	let parsed = [];
 	let rooms = [...map.entries()];
+	console.log(rooms)
 	rooms.forEach(([key, value]) => {
+		console.log(key, value)
 		let clients = [...value.clients];
 		const room = {
 			'room': key,
